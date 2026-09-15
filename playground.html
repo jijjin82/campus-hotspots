@@ -4,14 +4,31 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>운동장 - 캠퍼스 핫스팟</title>
+    <link rel="stylesheet" href="styles.css">
   </head>
-  <body>
-    <h1>운동장</h1>
-    <img src="images/playground.jpg" alt="대운동장 전경" width="400">
-    <p>넓은 운동장이 보이는 계단에 앉아서 바람을 느끼고 여유를 즐깁니다.</p>
-    <p><a href="https://maps.app.goo.gl/GWvusz4FjF6xEtFSA" target="_blank" rel="noopener">지도에서 위치 찾기</a></p>
-    <p><a href="index.html">← 처음으로 돌아가기</a></p>
-  <p><a href="library.html">← 이전 장소: 도서관</a></p>
-  <p><a href="chapel.html">다음 장소: 채플 →</a></p>
- </body>
+  <body class="page-playground">
+    <div class="page">
+
+      <header>
+        <a class="back-link" href="index.html">← 처음으로</a>
+        <h1>운동장</h1>
+        <p>넓은 운동장이 보이는 계단</p>
+      </header>
+
+      <main>
+        <section class="panel">
+          <img src="images/playground.jpg" alt="대운동장 전경">
+          <p>넓은 운동장이 보이는 계단에 앉아서 바람을 느끼고 여유를 즐깁니다.</p>
+          <a class="action" href="https://maps.app.goo.gl/GWvusz4FjF6xEtFSA" target="_blank" rel="noopener">지도에서 위치 찾기</a>
+        </section>
+      </main>
+
+      <footer>
+        <p><a href="library.html">← 이전 장소: 도서관</a></p>
+        <p class="next-place"><a href="chapel.html">다음 장소: 채플 →</a></p>
+        <p>사진 출처: 운동장(나무위키, 가톨릭대학교)</p>
+      </footer>
+
+    </div>
+  </body>
 </html>
