@@ -2,10 +2,15 @@
   box-sizing: border-box;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
   font-family: system-ui, sans-serif;
   line-height: 1.7;
+  overflow-x: hidden;
 }
 
 .page {
@@ -101,7 +106,6 @@ footer {
   border-color: #947954;
 }
 
-
 .page-playground {
   background-color: #eaf4fc;
   color: #123a5e;
@@ -145,25 +149,60 @@ footer {
 }
 
 @media (max-width: 600px) {
- 
+
+  .page {
+    width: 100%;
+    max-width: 100%;
+    padding: 1.5rem 1rem;
+  }
+
+  .panel {
+    width: 100%;
+    padding: 1rem;
+    margin: 1rem 0;
+    text-align: center;
+  }
+
+  header {
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
   .page-home h1 {
-    font-size: 1.7rem;
+    font-size: 1.9rem;
   }
-  .page-home .panel {
-    padding: 1rem;
+
+  img {
+    margin: 0 auto 1rem;
   }
- 
-  .page-library .panel {
-    border-width: 1px;
-    padding: 1rem;
+
+  .action {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
   }
- 
-  .page-playground .panel {
-    border-radius: 16px;
-    box-shadow: 0 6px 14px rgb(14 107 168 / 12%);
+
+  .back-link {
+    display: block;
+    text-align: center;
   }
- 
-  .page-chapel .panel {
-    border-left-width: 3px;
+
+  .page-home {
+    background-color: #fffbea;
+  }
+
+  .page-library {
+    background-color: #f7edd2;
+  }
+
+  .page-playground {
+    background-color: #f3f2d9;
+  }
+
+  .page-chapel {
+    background-color: #33302a;
   }
 }
