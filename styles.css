@@ -145,27 +145,25 @@ footer {
 }
 
 @media (max-width: 600px) {
-  .page {
-    width: 94%;
-    padding: 1.5rem 0;
-  }
-
-  .panel {
-    padding: 1rem;
-    margin: 1rem 0;
-  }
-
-  h1 {
-    font-size: 1.6rem;
-  }
-
+ 
   .page-home h1 {
-    font-size: 1.9rem;
+    font-size: 1.7rem;
   }
-
-  .action {
-    display: block;
-    text-align: center;
-    padding: 0.9em 1em;
+  .page-home .panel {
+    padding: 1rem;
+  }
+ 
+  .page-library .panel {
+    border-width: 1px;
+    padding: 1rem;
+  }
+ 
+  .page-playground .panel {
+    border-radius: 16px;
+    box-shadow: 0 6px 14px rgb(14 107 168 / 12%);
+  }
+ 
+  .page-chapel .panel {
+    border-left-width: 3px;
   }
 }
