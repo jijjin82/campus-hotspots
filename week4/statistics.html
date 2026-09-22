@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>경기도 시군별 인구 통계 - week4</title>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.2.0/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app-stats.js" defer></script>
+  </head>
+  <body>
+    <div class="page">
+
+      <header>
+        <h1>경기도 시군별 인구 통계</h1>
+        <p>같은 자료를 두 가지 질문으로 나누어 살펴봅니다.</p>
+      </header>
+
+      <nav class="place-buttons" aria-label="통계 선택">
+        <button type="button" class="place-btn" data-panel="population" aria-pressed="false">시군별 총인구</button>
+        <button type="button" class="place-btn" data-panel="foreigners" aria-pressed="false">시군별 등록외국인</button>
+      </nav>
+
+      <main>
+
+        <section id="population" class="stat-panel" hidden>
+          <h2>경기도 시군별 총인구 비교</h2>
+          <p class="meta">
+            대상: 경기도 시·군 (합계 행 제외) · 단위: 명 · 기준: CSV 상단 표기 연월<br>
+            출처: <a href="https://data.gg.go.kr/portal/data/service/selectServicePage.do?infId=8DH8S8QY356MQXBAXKSW34715782&infSeq=1" target="_blank" rel="noopener">공공데이터포털</a> "경기도 시군별 세대 및 인구" 
+          </p>
+          <div class="chart-wrap">
+            <canvas id="chart-population"></canvas>
+          </div>
+          <p id="interpret-population" class="interpret">데이터를 불러오는 중입니다...</p>
+        </section>
+
+        <section id="foreigners" class="stat-panel" hidden>
+          <h2>경기도 시군별 등록외국인 비교</h2>
+          <p class="meta">
+            대상: 경기도 시·군 (합계 행 제외) · 단위: 명 · 기준: CSV 상단 표기 연월<br>
+            출처: <a href="https://data.gg.go.kr/portal/data/service/selectServicePage.do?infId=8DH8S8QY356MQXBAXKSW34715782&infSeq=1" target="_blank" rel="noopener">공공데이터포털</a> "경기도 시군별 세대 및 인구" 
+          </p>
+          <div class="chart-wrap">
+            <canvas id="chart-foreigners"></canvas>
+          </div>
+          <p id="interpret-foreigners" class="interpret">데이터를 불러오는 중입니다...</p>
+        </section>
+
+        <p id="status" role="status"></p>
+
+      </main>
+
+      <footer>
+        <p><a href="index.html">← 장소 탐험 화면으로</a></p>
+      </footer>
+
+    </div>
+  </body>
+</html>

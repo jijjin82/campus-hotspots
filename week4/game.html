@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>코인 모으기 - 캠퍼스 핫스팟</title>
+    <style>
+      * { box-sizing: border-box; }
+
+      :root {
+        color: #17223b;
+        background: #dff3f6;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: linear-gradient(145deg, #dff3f6 0%, #f9efd4 100%);
+      }
+
+      .game-page {
+        width: min(94%, 760px);
+        margin: 0 auto;
+        padding: 2rem 0 2.5rem;
+      }
+
+      header { text-align: center; }
+      h1 { margin: 0; font-size: clamp(2rem, 7vw, 3.5rem); letter-spacing: 0; }
+      header p { margin: 0.4rem 0 1.4rem; color: #526173; }
+
+      .scoreboard {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+      }
+
+      .score-item {
+        padding: 0.7rem;
+        border: 2px solid #17223b;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.8);
+        text-align: center;
+      }
+
+      .score-item span { display: block; font-size: 0.85rem; color: #526173; }
+      .score-item strong { display: block; font-size: 1.6rem; }
+
+      .canvas-frame {
+        position: relative;
+        padding: 0.5rem;
+        border: 3px solid #17223b;
+        border-radius: 18px;
+        background: #1e4057;
+        box-shadow: 0 10px 0 #17223b;
+      }
+
+      canvas {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        background: #80c7c9;
+        cursor: crosshair;
+        touch-action: none;
+      }
+
+      .message {
+        min-height: 2rem;
+        margin: 1.3rem 0 0.7rem;
+        color: #17223b;
+        font-size: 1.1rem;
+        font-weight: 700;
+        text-align: center;
+      }
+
+      .controls { text-align: center; }
+      button {
+        padding: 0.8rem 1.7rem;
+        border: 0;
+        border-radius: 999px;
+        background: #e4572e;
+        color: #fff;
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 4px 0 #a43b20;
+      }
+
+      button:hover { background: #c94725; }
+      button:focus-visible { outline: 3px solid #17223b; outline-offset: 4px; }
+      .back-link { display: block; margin-top: 1.5rem; color: #17223b; text-align: center; }
+
+      @media (max-width: 480px) {
+        .game-page { padding-top: 1.2rem; }
+        .score-item { padding: 0.5rem 0.2rem; }
+        .score-item strong { font-size: 1.35rem; }
+      }
+    </style>
+    <script src="game.js" defer></script>
+  </head>
+  <body>
+    <main class="game-page">
+      <header>
+        <h1>코인 모으기</h1>
+        <p>노란 코인은 모으고, 빨간 장애물은 피하세요!</p>
+      </header>
+
+      <section class="scoreboard" aria-label="게임 상태">
+        <div class="score-item"><span>점수</span><strong id="score">0</strong></div>
+        <div class="score-item"><span>남은 시간</span><strong><span id="time">20</span>초</strong></div>
+        <div class="score-item"><span>남은 기회</span><strong id="lives">3</strong></div>
+      </section>
+
+      <div class="canvas-frame">
+        <canvas id="gameCanvas" width="700" height="440" aria-label="코인과 장애물이 나타나는 게임 화면"></canvas>
+      </div>
+
+      <p id="message" class="message" role="status" aria-live="polite">시작 버튼을 눌러 게임을 시작하세요.</p>
+      <div class="controls">
+        <button id="startButton" type="button">게임 시작</button>
+      </div>
+      <a class="back-link" href="index.html">← week4 처음으로</a>
+    </main>
+  </body>
+</html>

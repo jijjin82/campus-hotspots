@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>캠퍼스 핫스팟 탐험 - week4</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="page">
+
+      <header>
+        <h1>캠퍼스 핫스팟 탐험</h1>
+        <p>버튼을 눌러 세 장소를 하나의 화면에서 둘러보세요.</p>
+      </header>
+
+      <nav class="place-buttons" aria-label="장소 선택">
+        <button type="button" class="place-btn" data-place="library" aria-pressed="false">중앙도서관</button>
+        <button type="button" class="place-btn" data-place="playground" aria-pressed="false">운동장</button>
+        <button type="button" class="place-btn" data-place="chapel" aria-pressed="false">채플</button>
+      </nav>
+
+      <main class="stage">
+
+        <div class="info">
+          <section id="library" class="place-panel" hidden>
+            <img src="images/library.jpg" alt="중앙도서관 열람실 전경">
+            <h2>중앙도서관</h2>
+            <p>쉬면서 조용히 공부를 할 수 있는 공간입니다.</p>
+            <p class="reason">추천 이유: 넓은 열람실과 조용한 분위기 덕분에 집중해서 공부하기 좋습니다.</p>
+          </section>
+
+          <section id="playground" class="place-panel" hidden>
+            <img src="images/playground.jpg" alt="대운동장 전경">
+            <h2>운동장</h2>
+            <p>넓은 운동장이 보이는 계단입니다.</p>
+            <p class="reason">추천 이유: 탁 트인 전망과 바람을 느끼며 잠시 여유를 즐길 수 있습니다.</p>
+          </section>
+
+          <section id="chapel" class="place-panel" hidden>
+            <img src="images/chapel.jpg" alt="예수성심성당 전경">
+            <h2>채플 (예수성심성당)</h2>
+            <p>조용하고 생각을 정리할 수 있는 공간입니다.</p>
+            <p class="reason">추천 이유: 고요한 분위기 속에서 마음을 가다듬고 고민을 정리하기 좋습니다.</p>
+          </section>
+        </div>
+
+        <div class="map-wrap">
+          <iframe
+            id="map"
+            title="선택한 장소의 지도"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="">
+          </iframe>
+        </div>
+
+      </main>
+
+      <footer>
+        <p>사진 출처: 중앙도서관·채플(가톨릭대학교), 운동장(나무위키, 가톨릭대학교)</p>
+        <p><a href="statistics.html">인구 통계 보기 →</a></p>
+        <p><a href="game.html">코인 모으기 게임 하러 가기 →</a></p>
+      </footer>
+
+    </div>
+  </body>
+</html>
