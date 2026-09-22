@@ -123,9 +123,7 @@ function drawPopulationChart(rows) {
 
   document.querySelector("#interpret-population").textContent =
     "인구가 가장 많은 시는 " + top["시군구"] + "(" + Number(top["총인구"]).toLocaleString() +
-    "명)이며, 2위 " + second["시군구"] + "보다 " + diff.toLocaleString() + "명 많습니다. " +
-    "다만 이 수치는 면적이나 행정구역 넓이를 반영하지 않으므로, 인구가 많다고 해서 인구밀도가 " +
-    "높다고 단정할 수는 없습니다.";
+    "명)이며, 2위 " + second["시군구"] + "보다 " + diff.toLocaleString() + "명 많습니다. " ;
 }
 
 function drawForeignerChart(rows) {
@@ -164,6 +162,5 @@ function drawForeignerChart(rows) {
   document.querySelector("#interpret-foreigners").textContent =
     "등록외국인이 가장 많은 시는 " + top["시군구"] + "(" + Number(top["등록외국인"]).toLocaleString() +
     "명)이며, 이 시는 총인구 순위로는 " + popRank + "위입니다. " +
-    "즉 총인구 순위와 등록외국인 순위가 반드시 일치하지는 않습니다. " +
-    "다만 이 자료만으로 외국인이 많은 이유(산업단지 유무 등)까지는 알 수 없습니다.";
+    "즉 총인구 순위와 등록외국인 순위가 반드시 일치하지는 않습니다. " ;
 }
