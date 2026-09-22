@@ -161,6 +161,5 @@ function drawForeignerChart(rows) {
 
   document.querySelector("#interpret-foreigners").textContent =
     "등록외국인이 가장 많은 시는 " + top["시군구"] + "(" + Number(top["등록외국인"]).toLocaleString() +
-    "명)이며, 이 시는 총인구 순위로는 " + popRank + "위입니다. " +
-    "즉 총인구 순위와 등록외국인 순위가 반드시 일치하지는 않습니다. " ;
+    "명)이며, 이 시는 총인구 순위로는 " + popRank + "위입니다. " ;
 }
