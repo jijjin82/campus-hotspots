@@ -1,4 +1,3 @@
-// ===== 탭(패널) 전환 =====
 const buttons = document.querySelectorAll(".place-btn");
 const panels = document.querySelectorAll(".stat-panel");
 const charts = {};
@@ -10,7 +9,6 @@ function showPanel(id) {
   for (const button of buttons) {
     button.setAttribute("aria-pressed", String(button.dataset.panel === id));
   }
-  // 숨겨져 있던 그래프는 폭을 제대로 계산 못할 수 있어 보여준 뒤 다시 맞춘다.
   requestAnimationFrame(function () {
     if (charts[id]) charts[id].resize();
   });
@@ -22,9 +20,8 @@ buttons.forEach(function (button) {
   });
 });
 
-showPanel("population"); // 첫 접속에는 첫 탭만 보이게
+showPanel("population"); 
 
-// ===== 막대그래프 하나를 그리는 공통 함수 =====
 function drawBarChart(canvasId, labels, values, label, color) {
   const ctx = document.querySelector("#" + canvasId);
   return new Chart(ctx, {
@@ -54,7 +51,6 @@ function drawBarChart(canvasId, labels, values, label, color) {
   });
 }
 
-// ===== CSV 읽기 및 그래프 생성 =====
 Papa.parse("./data/population.csv", {
   download: true,
   header: true,
@@ -72,7 +68,6 @@ Papa.parse("./data/population.csv", {
       return;
     }
 
-    // "합계" 행과 빈 값·숫자가 아닌 행은 제외한다.
     const rows = results.data.filter(function (row) {
       const name = (row["시군구"] || "").trim();
       return (
@@ -98,8 +93,6 @@ Papa.parse("./data/population.csv", {
     document.querySelector("#status").textContent = "CSV 경로와 네트워크를 확인하세요.";
   },
 });
-
-// ===== 그래프 1: 시군별 총인구 (상위 10곳) =====
 function drawPopulationChart(rows) {
   const sorted = rows
     .slice()
