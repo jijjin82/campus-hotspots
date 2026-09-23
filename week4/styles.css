@@ -1,3 +1,142 @@
+/* =========================================================
+   공통 규칙 (index.html, statistics.html 둘 다 사용)
+   ========================================================= */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  line-height: 1.7;
+  color: #17223b;
+  background: #f7f8fc;
+  overflow-x: hidden;
+}
+
+.page {
+  width: 92%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: inherit;
+  font-size: 0.9rem;
+}
+
+header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.3rem;
+}
+
+footer {
+  margin-top: 2rem;
+  font-size: 0.85rem;
+  color: #58657c;
+}
+
+footer a {
+  display: inline-block;
+  margin-top: 0.3rem;
+  color: inherit;
+}
+
+/* =========================================================
+   장소 탐험 페이지 (index.html) 전용
+   ========================================================= */
+
+/* 장소 버튼 */
+.place-buttons {
+  display: flex;
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+  flex-wrap: wrap;
+}
+
+.place-btn {
+  font: inherit;
+  padding: 0.7em 1.2em;
+  border: 2px solid #7455e9;
+  border-radius: 10px;
+  background: white;
+  color: #30205c;
+  cursor: pointer;
+}
+
+.place-btn:hover {
+  background: #ece6ff;
+}
+
+.place-btn:focus-visible {
+  outline: 3px solid #c56200;
+  outline-offset: 3px;
+}
+
+.place-btn[aria-pressed="true"] {
+  background: #7455e9;
+  color: white;
+}
+
+/* 넓은 화면: 설명(왼쪽) + 지도(오른쪽) 나란히 */
+.stage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.info {
+  background: white;
+  border: 1px solid #dce4ff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  min-height: 320px;
+}
+
+.place-panel img {
+  display: block;
+  width: 100%;
+  max-height: 260px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+.place-panel h2 {
+  margin: 0 0 0.5rem;
+}
+
+.place-panel .reason {
+  color: #58657c;
+  font-size: 0.95rem;
+}
+
+.map-wrap {
+  background: white;
+  border: 1px solid #dce4ff;
+  border-radius: 16px;
+  overflow: hidden;
+  min-height: 320px;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  border: 0;
+}
+
+/* =========================================================
+   통계 페이지 (statistics.html) 전용
+   ========================================================= */
 .stat-panel {
   background: white;
   border: 1px solid #dce4ff;
@@ -16,11 +155,6 @@
   background: #fafbff;
   border-radius: 12px;
   padding: 1rem;
-  height: 320px;
-}
-
-.chart-wrap canvas {
-  max-width: 100%;
 }
 
 .interpret {
@@ -38,13 +172,41 @@
   margin-top: 1rem;
 }
 
+/* =========================================================
+   좁은 화면 (모바일) 공통 규칙
+   ========================================================= */
 @media (max-width: 700px) {
+  .stage {
+    grid-template-columns: 1fr;
+  }
+
+  .place-buttons {
+    justify-content: center;
+  }
+
+  .place-btn {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+
+  .info,
+  .map-wrap {
+    min-height: 0;
+  }
+
+  #map {
+    min-height: 260px;
+  }
+
+  header h1 {
+    font-size: 1.5rem;
+  }
+
   .stat-panel {
     padding: 1rem;
   }
 
   .chart-wrap {
     padding: 0.5rem;
-    height: 380px;
   }
 }
