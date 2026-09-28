@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>친구와 얼마나 통할까? · 취향 밸런스 게임</title>
+<title>우리 캠퍼스 생활 궁합 · 취향 밸런스 게임</title>
 <style>
 /* 바꿔 보기 1: 색상, 제목, 카드 모양 */
 :root { color-scheme: light; --accent: #6246c5; }
@@ -36,9 +36,9 @@ progress { width: 100%; accent-color: var(--accent); }
 <body>
 <main>
 <header>
-  <p class="eyebrow">YOUR CHOICE, OUR CONVERSATION</p>
-  <h1>친구와 얼마나 통할까?</h1>
-  <p>여섯 번의 선택으로 알아보는 우리 취향. 같은 기기에서 번갈아 도전하고, 무엇이 같고 다른지 이야기해 보세요.</p>
+  <p class="eyebrow">SEONGSIM CAMPUS · OUR DAILY LIFE</p>
+  <h1>캠퍼스 생활 궁합</h1>
+  <p>공강, 점심, 시험 기간. 여섯 번의 선택으로 알아보는 캠퍼스 생활 스타일. 같은 기기에서 동기와 번갈아 도전하고, 무엇이 같고 다른지 이야기해 보세요.</p>
   <p class="muted">정식 성격 진단이 아닌 놀이입니다. 이 브라우저의 기록만 보관하며, 다른 기기의 기록은 합쳐지지 않습니다.</p>
 </header>
 <p id="notice" class="notice" role="status" hidden></p>
@@ -66,6 +66,7 @@ progress { width: 100%; accent-color: var(--accent); }
   <p class="eyebrow">MY TASTE CARD</p>
   <h2 id="result-title" tabindex="-1"></h2>
   <p id="result-description"></p>
+  <p id="result-course" class="notice"></p>
   <p id="result-owner"></p>
   <ul id="result-answers"></ul>
   <label for="friend">이 기록과 비교할 친구</label>
@@ -93,19 +94,25 @@ progress { width: 100%; accent-color: var(--accent); }
 </main>
 <script>
 // 바꿔 보기 2: 질문과 결과. 질문 ID나 선택의 의미를 바꾸면 VERSION도 바꿉니다.
-const VERSION = "campus-v1";
+const VERSION = "campus-life-v1";
 const QUESTIONS = [
-  { id: "break", title: "공강 두 시간, 어디로 갈까?", choices: ["카페에서 쉬기", "새로운 곳 탐방"] },
-  { id: "trip", title: "여행을 떠난다면?", choices: ["일정표대로 차근차근", "마음 가는 대로"] },
-  { id: "evening", title: "과제 끝난 저녁에는?", choices: ["혼자 조용히 충전", "친구와 수다"] },
-  { id: "food", title: "처음 가 본 식당에서?", choices: ["익숙한 메뉴 선택", "처음 보는 메뉴 도전"] },
-  { id: "weekend", title: "주말에 갑자기 시간이 생겼다!", choices: ["좋아하던 영화 다시 보기", "새로운 취미 체험"] },
-  { id: "festival", title: "축제를 즐기는 나의 방법은?", choices: ["편한 자리에서 감상", "처음 보는 부스도 참여"] }
+  { id: "gap", title: "공강 2시간이 생겼다!", choices: ["중앙도서관 열람실에서 쉬기", "운동장 한 바퀴 산책"] },
+  { id: "lunch", title: "오늘 점심은?", choices: ["늘 먹던 학식 메뉴", "안 가 본 교문 앞 식당"] },
+  { id: "rain", title: "비 오는 날, 수업 사이 쉬는 시간", choices: ["창가 자리에서 멍 때리기", "친구들 모아 카페로 이동"] },
+  { id: "exam", title: "시험 기간 나의 공부 스타일은?", choices: ["혼자 조용히 집중", "스터디 모임에서 같이"] },
+  { id: "club", title: "동아리를 하나 고른다면?", choices: ["차분한 독서·사진 동아리", "땀 흘리는 운동 동아리"] },
+  { id: "fest", title: "축제 날 나의 위치는?", choices: ["멀리서 공연 감상", "부스 먹거리 투어"] }
 ];
 const RESULTS = {
-  calm: { title: "느긋한 충전가", description: "익숙한 즐거움으로 에너지를 채우는 편이군요! 친구의 새로운 선택도 들어보세요." },
-  balanced: { title: "유연한 균형가", description: "편안함과 새로움을 모두 즐기는 당신. 오늘의 기분은 어느 쪽인가요?" },
-  explorer: { title: "즉흥 탐험가", description: "새로운 경험에 마음이 움직이는군요! 다음에는 친구와 함께 도전해 보세요." }
+  calm: { title: "조용한 도서관파",
+    description: "익숙하고 조용한 곳에서 에너지를 채우는 편이군요! 가끔은 동기의 활발한 선택도 따라가 보세요.",
+    course: "추천 공강 코스: 중앙도서관 창가 자리 → 채플 앞 벤치에서 잠깐 산책" },
+  balanced: { title: "여유로운 채플파",
+    description: "쉴 때와 움직일 때를 잘 아는 당신. 오늘은 어느 쪽 기분인가요?",
+    course: "추천 공강 코스: 채플 앞 벤치에서 쉬다가 → 운동장 가장자리 산책" },
+  explorer: { title: "활기찬 운동장파",
+    description: "새롭고 활발한 경험에 마음이 움직이는군요! 다음엔 동기를 끌고 함께 도전해 보세요.",
+    course: "추천 공강 코스: 운동장 한 바퀴 → 안 가 본 교문 앞 맛집 탐방" }
 };
 // 바꿔 보기 3: 키 이름을 바꾸면 읽기·쓰기·삭제가 모두 같은 이름을 쓰게 합니다.
 const DRAFT_KEY = "week5.balance.draft";
@@ -292,6 +299,7 @@ function showResult(id) {
   $("#result").hidden = false;
   $("#result-title").textContent = RESULTS[record.type].title;
   $("#result-description").textContent = RESULTS[record.type].description;
+  $("#result-course").textContent = RESULTS[record.type].course;
   $("#result-owner").textContent = record.nickname + "의 선택 · " + new Date(record.completedAt).toLocaleString("ko-KR");
   $("#result-answers").replaceChildren(...answerSummary(record).children);
   $("#friend").replaceChildren();
