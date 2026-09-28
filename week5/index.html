@@ -6,14 +6,14 @@
 <title>우리 캠퍼스 생활 궁합 · 취향 밸런스 게임</title>
 <style>
 /* 바꿔 보기 1: 색상, 제목, 카드 모양 */
-:root { color-scheme: light; --accent: #6246c5; }
+:root { color-scheme: light; --accent: #2f6fb3; }
 * { box-sizing: border-box; }
 body { margin: 0; padding: 24px; background: #f3f0fb; color: #252039; font-family: system-ui, sans-serif; line-height: 1.65; }
 main { max-width: 760px; margin: auto; }
 section, header { padding: 24px; margin-bottom: 18px; background: white; border: 1px solid #e2dcef; border-radius: 22px; }
 h1 { font-size: clamp(1.6rem, 5vw, 2.4rem); line-height: 1.25; }
 h2 { font-size: 1.3rem; }
-.eyebrow { color: #6246c5; font-weight: 750; letter-spacing: .06em; }
+.eyebrow { color: var(--accent); font-weight: 750; letter-spacing: .06em; }
 button, input, select { font: inherit; border-radius: 10px; padding: 10px 14px; max-width: 100%; }
 button { border: 1px solid #d1c7e7; background: #f5f1ff; color: #352462; cursor: pointer; }
 button.primary { background: var(--accent); color: white; }
@@ -23,7 +23,7 @@ input, select { border: 1px solid #aaa0bd; background: white; color: #252039; }
 .actions { display: flex; gap: 10px; flex-wrap: wrap; margin: 14px 0; }
 .choices { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 18px 0; }
 .choices button { min-height: 88px; }
-.choices button[aria-pressed="true"] { background: #6246c5; color: white; border: 3px solid #352462; }
+.choices button[aria-pressed="true"] { background: var(--accent); color: white; border: 3px solid #1d3f66; }
 progress { width: 100%; accent-color: var(--accent); }
 .notice { padding: 12px; border-radius: 10px; background: #fff3d6; }
 .muted { color: #625b70; font-size: .92rem; }
@@ -96,19 +96,19 @@ progress { width: 100%; accent-color: var(--accent); }
 // 바꿔 보기 2: 질문과 결과. 질문 ID나 선택의 의미를 바꾸면 VERSION도 바꿉니다.
 const VERSION = "campus-life-v1";
 const QUESTIONS = [
-  { id: "gap", title: "공강 2시간이 생겼다", choices: ["중앙도서관 열람실에서 쉬기", "운동장 한 바퀴 산책"] },
+  { id: "gap", title: "수업 사이에 공간이 있다", choices: ["중앙도서관 열람실에서 쉬기", "운동장 한 바퀴 산책"] },
   { id: "lunch", title: "오늘 점심은?", choices: ["늘 먹던 학식 메뉴", "안 가 본 교문 앞 식당"] },
-  { id: "rain", title: "비 오는 날, 수업 사이 쉬는 시간", choices: ["창가 자리에서 멍 때리기", "친구들 모아 카페로 이동"] },
+  { id: "rain", title: "수업 사이 쉬는 시간", choices: ["엎드려 휴식", "친구들과 대화"] },
   { id: "exam", title: "시험 기간 나의 공부 스타일은?", choices: ["혼자 조용히 집중", "스터디 모임에서 같이"] },
-  { id: "club", title: "동아리를 하나 고른다면?", choices: ["차분한 독서·사진 동아리", "땀 흘리는 운동 동아리"] },
+  { id: "club", title: "동아리를 하나 고른다면?", choices: ["독서·사진 동아리", "땀 흘리는 운동 동아리"] },
   { id: "fest", title: "축제 날 나의 위치는?", choices: ["멀리서 공연 감상", "부스 먹거리 투어"] }
 ];
 const RESULTS = {
   calm: { title: "조용한 도서관파",
-    description: "익숙하고 조용한 곳에서 에너지를 채우는 편이군요! 가끔은 동기의 활발한 선택도 따라가 보세요.",
+    description: "익숙하고 조용한 곳에서 에너지를 채우는 편이군요!",
     course: "추천 공강 코스: 중앙도서관 창가 자리 → 채플 앞 벤치에서 잠깐 산책" },
   balanced: { title: "여유로운 채플파",
-    description: "쉴 때와 움직일 때를 잘 아는 당신. 오늘은 어느 쪽 기분인가요?",
+    description: "쉴 때와 움직일 때를 잘 아시는군요!",
     course: "추천 공강 코스: 채플 앞 벤치에서 쉬다가 → 운동장 가장자리 산책" },
   explorer: { title: "활기찬 운동장파",
     description: "새롭고 활발한 경험에 마음이 움직이는군요! 다음엔 동기를 끌고 함께 도전해 보세요.",
