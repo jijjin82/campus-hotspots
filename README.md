@@ -128,3 +128,46 @@
 - 도움받은 작업: 장소 버튼 추가는 VS Code Copilot에 "서버 코드와 fetch·파형 코드는 건드리지 말고 버튼만 추가"라고 요청함. 개념 이해와 Render 설정은 Claude에게 질문함
 - 직접 확인·수정한 부분: Edge 브라우저 Copilot은 내 코드를 보지 못해 `fetch('/tts')`라고 답했지만, Network에서 실제 주소가 `/api/tts`인 것을 보고 틀린 답임을 확인하고 VS Code Copilot으로 다시 요청함
 - 실행해서 확인한 결과: 버튼 3개 모두 문장이 바뀌고, 바뀐 문장으로 음성·파형이 정상 생성됨
+
+## 7주차 · 로그인하는 한 줄 게시판
+
+### 서비스 정보
+- 주제: 캠퍼스 숨은 명소 한 줄 추천 ("학교에서 나만 아는 좋은 장소, 어디예요?")
+- Render 주소: https://campus-spot-board.onrender.com
+- 수정한 파일: `app.py`(BOARD_TITLE, BOARD_QUESTION), `templates/comments.html`(안내 문구, 입력 예시), `static/style.css`(파란색 → 초록색)
+- 유지한 부분: 라우트, 로그인·회원가입, 관리자 확인(require_admin), CSRF 검사, DB 구조
+  ![메인 화면](week7/screenshots/board-render.png)
+
+### 로컬 실행
+~~~powershell
+conda activate wp6
+cd week7
+python -m pip install -r requirements.txt
+$env:SECRET_KEY="<직접 만든 64자리 값>"
+python -m flask --app app init-db
+python -m flask --app app run --debug --port 5000
+~~~
+- Windows VS Code 터미널은 PowerShell이라 자료의 `set` 대신 `$env:이름="값"` 형식을 사용함
+- 관리자 지정: `$env:WEEK7_ADMIN_USERNAME="admin7"` 후 `python -m flask --app app promote-admin`
+
+### Render 배포
+- Root Directory `week7`, Start Command에서 `init-db → ensure-admin → gunicorn` 순서로 실행
+- 환경 변수: SECRET_KEY, WEEK7_ADMIN_USERNAME, WEEK7_ADMIN_PASSWORD, APP_HTTPS, PYTHON_VERSION (값은 저장소에 적지 않음)
+- 무료 서비스는 재시작·재배포 때 DB가 초기화될 수 있지만, 시작할 때마다 `ensure-admin`이 관리자 계정을 다시 만들기 때문에 관리자 로그인은 유지됨
+
+### 관리 기능 시험 결과 (Render)
+1. admin7로 로그인 → 관리 화면에서 연습 계정 2개·글 4개 생성
+   ![관리 화면](week7/screenshots/admin-render.png)
+2. 연습 계정 B로 로그인 → 상단에 관리 화면 링크가 없고, `/admin`을 직접 입력하면 "관리자만 열 수 있습니다"(403)
+   ![403](week7/screenshots/forbidden-403.png)
+3. B로 A의 `[연습]` 글 신고 → admin7의 "신고된 글만 보기"에서 신고 1건·이유 확인 후 관리자 삭제
+   ![신고 확인](week7/screenshots/report-admin.png)
+4. B 계정 차단 → B로 로그인하면 "차단된 계정입니다."
+   ![차단](week7/screenshots/blocked-login.png)
+5. 연습 데이터 모두 삭제 → 연습 계정 0개·연습 글 0개, admin7 계정은 남음
+
+처음에 B로 `/comments/admin`에 들어갔다가 404가 나왔다. 404는 "주소가 없음", 403은 "주소는 있지만 권한이 없음"이라는 차이를 직접 확인했다. 관리 링크를 화면에서 숨기는 것만으로는 부족하고, 서버가 요청마다 관리자인지 검사해야 직접 주소를 입력해도 막을 수 있다.
+
+### AI 활용
+- 도움받은 작업: 주제 문구와 색 변경은 VS Code Copilot에 "라우트·인증·CSRF·DB·form의 name은 건드리지 말고 글자와 색만 바꿔줘"라고 요청함. Render 설정과 환경 변수는 Claude에게 질문함
+- 직접 확인한 부분: 변경 후 글 올리기가 정상 동작해서 form이 망가지지 않았음을 확인. `instance/app.db`와 SECRET_KEY가 커밋되지 않았는지 `git status`로 확인![alt text](image.png)
