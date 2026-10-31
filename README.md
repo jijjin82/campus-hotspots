@@ -90,7 +90,7 @@
 ### 실습 1 · 이미지 처리
 - Render 주소: https://campus-hotspots-image.onrender.com
 - 휴대폰 확인 화면: 노트북 Flask를 끈 상태에서 휴대폰으로 Render 주소에 접속해 사진을 흑백 처리함
-  ![휴대폰 결과](week6/screenshots/phone-result.jpg)
+![휴대폰 결과](week6/screenshots/phone-result.jpg)
 - 브라우저가 보낸 값: 사진 파일, 처리 방법(grayscale/blur/edge), blur 커널 값을 multipart/form-data로 `POST /api/process`에 전송
 - 서버가 계산한 값: Flask가 OpenCV로 처리한 뒤 PNG 이미지로 응답
 - 세 처리 방법 결과: 로컬에서 흑백·블러·윤곽선 모두 정상 동작 확인
@@ -106,9 +106,19 @@
 - 내가 수정한 내용: `templates/index.html`의 `<title>`을 "캠퍼스 이미지 실험실"로 바꿔 push → Render가 자동 재배포하여 브라우저 탭 이름이 바뀐 것을 확인
 
 ### 실습 2 · 서버 TTS (로컬 실행)
-- 실행 환경과 모델: Windows 로컬, conda 환경 wp6, Piper `en_US-lessac-low` (`piper.download_voices`로 받음, models 폴더는 커밋하지 않음)
+- 실행 명령과 로컬 주소: `python -m flask --app tts_app run --debug --port 5000` 실행 후 `http://127.0.0.1:5000/tts` 접속 (Render에는 배포하지 않음)
+- 사용한 모델: Piper `en_US-lessac-low` (영어 음성), `python -m piper.download_voices`로 내려받음. 출처: (https://huggingface.co/rhasspy/piper-voices/blob/main/en/en_US/lessac/low/MODEL_CARD)
+- 모델 파일은 `week6/models/`에 두고 `.gitignore`로 커밋에서 제외함
+- 서로 다른 두 문장 비교
+
+  | 문장 | 음성 길이 | WAV 크기 |
+  |---|---|---|
+  | Hello! Welcome to our campus museum. | 2.70초 | 84.5KiB |
+  | The chapel is a peaceful place for reflection and prayer. | 2.94초 | 92.0KiB |
+
+  문장이 길어지자 음성 길이와 파일 크기가 함께 늘어났고 파형 모양도 달라졌다. 서버가 미리 준비된 파일이 아니라 입력한 문장마다 새 음성을 만든다는 걸 확인할 수 있었다
+
 - 사용 상황과 추가한 요소: 캠퍼스 장소를 영어로 안내하는 상황. 입력칸 아래에 "중앙도서관·운동장·채플" 버튼을 추가해, 누르면 해당 장소 소개 문장이 입력칸에 채워지게 했다 (`type="button"`으로 form 제출과 분리)
-- 결과: 채플 문장 → 서버 생성 78.3ms · 음성 길이 2.94초 · WAV 92.0KiB
   ![TTS 파형](week6/screenshots/tts-waveform.png)
 - 첫 요청 vs 이후: 첫 요청 2352.1ms, 이후 88.5ms·95.9ms. 첫 요청 때 모델을 불러오고 이후엔 재사용하기 때문
 - 요청·응답 확인: Network에서 `POST /api/tts`, 200 OK, 요청 본문이 JSON `{text, length_scale}`인 것을 확인
