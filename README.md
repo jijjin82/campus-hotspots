@@ -84,3 +84,37 @@
 - 도움받은 작업: 캠퍼스 주제를 내가 말한 후 다듬어 달라고 요청함. 그리고 이해 안가는 개념 설명 요청.(Claude)
 - 대표 질문 한 개: 저장, 복원, 삭제 코드는 건드리지 않고 QUESTIONS와 RESULTS만 캠퍼스 주제로 바꾸려면 어디를 고쳐야 하는지.
 - 직접 수정·검증한 내용: 자연스럽지 않은 문구 수정, 개발자 도구 Application 패널에서 위 확인 결과 항목을 직접 실행해 검증
+
+## 6주차 · Flask 서버 계산 실습
+
+### 실습 1 · 이미지 처리
+- Render 주소: https://campus-hotspots-image.onrender.com
+- 휴대폰 확인 화면: 노트북 Flask를 끈 상태에서 휴대폰으로 Render 주소에 접속해 사진을 흑백 처리함
+  ![휴대폰 결과](week6/screenshots/phone-result.jpg)
+- 브라우저가 보낸 값: 사진 파일, 처리 방법(grayscale/blur/edge), blur 커널 값을 multipart/form-data로 `POST /api/process`에 전송
+- 서버가 계산한 값: Flask가 OpenCV로 처리한 뒤 PNG 이미지로 응답
+- 세 처리 방법 결과: 로컬에서 흑백·블러·윤곽선 모두 정상 동작 확인
+- 사진 크기에 따른 처리 시간 비교 (휴대폰으로 Render 주소 접속, 흑백 처리)
+
+  | 사진 | 알고리즘 | 서버 처리 | 왕복 |
+  |---  |---|---|---|
+  | sample.png (작은 그림) | 6.05ms | 204.68ms | 404.0ms |
+  | 휴대폰으로 찍은 사진 (큰 사진) | 0.83ms | 497.40ms | 1102.0ms |
+
+  처음에는 사진이 크면 흑백으로 바꾸는 계산 자체가 오래 걸릴 거라고 생각했다. 그런데 실제로 재보니 알고리즘 시간은 두 사진 모두 몇 ms밖에 되지 않았고, 차이가 난 건 서버 처리와 왕복 시간이었다. 큰 사진은 왕복이 약 1.1초로 작은 그림보다 두 배 넘게 걸렸다. 사진을 서버로 올리고 결과를 다시 받는 시간, 그리고 파일을 읽고 PNG로 다시 만드는 시간이 사진 크기에 따라 늘어나기 때문이다. 결국 사용자가 느끼는 속도는 계산보다 테이터 양에 더 크게 좌우된다는 걸 알게 됐다.
+
+- 내가 수정한 내용: `templates/index.html`의 `<title>`을 "캠퍼스 이미지 실험실"로 바꿔 push → Render가 자동 재배포하여 브라우저 탭 이름이 바뀐 것을 확인
+
+### 실습 2 · 서버 TTS (로컬 실행)
+- 실행 환경과 모델: Windows 로컬, conda 환경 wp6, Piper `en_US-lessac-low` (`piper.download_voices`로 받음, models 폴더는 커밋하지 않음)
+- 사용 상황과 추가한 요소: 캠퍼스 장소를 영어로 안내하는 상황. 입력칸 아래에 "중앙도서관·운동장·채플" 버튼을 추가해, 누르면 해당 장소 소개 문장이 입력칸에 채워지게 했다 (`type="button"`으로 form 제출과 분리)
+- 결과: 채플 문장 → 서버 생성 78.3ms · 음성 길이 2.94초 · WAV 92.0KiB
+  ![TTS 파형](week6/screenshots/tts-waveform.png)
+- 첫 요청 vs 이후: 첫 요청 2352.1ms, 이후 88.5ms·95.9ms. 첫 요청 때 모델을 불러오고 이후엔 재사용하기 때문
+- 요청·응답 확인: Network에서 `POST /api/tts`, 200 OK, 요청 본문이 JSON `{text, length_scale}`인 것을 확인
+  ![Network](week6/screenshots/tts-network.png)
+
+### AI 활용
+- 도움받은 작업: 장소 버튼 추가는 VS Code Copilot에 "서버 코드와 fetch·파형 코드는 건드리지 말고 버튼만 추가"라고 요청함. 개념 이해와 Render 설정은 Claude에게 질문함
+- 직접 확인·수정한 부분: Edge 브라우저 Copilot은 내 코드를 보지 못해 `fetch('/tts')`라고 답했지만, Network에서 실제 주소가 `/api/tts`인 것을 보고 틀린 답임을 확인하고 VS Code Copilot으로 다시 요청함
+- 실행해서 확인한 결과: 버튼 3개 모두 문장이 바뀌고, 바뀐 문장으로 음성·파형이 정상 생성됨
