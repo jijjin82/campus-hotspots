@@ -170,4 +170,4 @@ python -m flask --app app run --debug --port 5000
 
 ### AI 활용
 - 도움받은 작업: 주제 문구와 색 변경은 VS Code Copilot에 "라우트·인증·CSRF·DB·form의 name은 건드리지 말고 글자와 색만 바꿔줘"라고 요청함. Render 설정과 환경 변수는 Claude에게 질문함
-- 직접 확인한 부분: 변경 후 글 올리기가 정상 동작해서 form이 망가지지 않았음을 확인. `instance/app.db`와 SECRET_KEY가 커밋되지 않았는지 `git status`로 확인![alt text](image.png)
+- 직접 확인한 부분: 변경 후 글 올리기가 정상 동작해서 form이 망가지지 않았음을 확인. `instance/app.db`와 SECRET_KEY가 커밋되지 않았는지 `git status`로 확인!
