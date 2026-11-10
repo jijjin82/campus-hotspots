@@ -122,7 +122,9 @@ function drawPopulationChart(rows) {
 
   document.querySelector("#interpret-population").textContent =
     "인구가 가장 많은 시는 " + top["시군구"] + "(" + Number(top["총인구"]).toLocaleString() +
-    "명)이며, 2위 " + second["시군구"] + "보다 " + diff.toLocaleString() + "명 많습니다. ";
+    "명)이며, 2위 " + second["시군구"] + "보다 " + diff.toLocaleString() + "명 많습니다. " +
+    "상위 몇 개 시에 인구가 몰려 있는 것은 이 지역들에 주거지나 일자리가 많기 때문일 수 있습니다. " +
+    "다만 이 자료는 한 시점의 인구 수만 담고 있어, 인구가 많은 원인이나 늘고 줄어드는 추세는 알 수 없습니다.";
 }
 
 // ===== 그래프 2: 시군별 등록외국인 (상위 10곳) =====
@@ -161,5 +163,7 @@ function drawForeignerChart(rows) {
 
   document.querySelector("#interpret-foreigners").textContent =
     "등록외국인이 가장 많은 시는 " + top["시군구"] + "(" + Number(top["등록외국인"]).toLocaleString() +
-    "명)이며, 이 시는 총인구 순위로는 " + popRank + "위입니다. " ;
+    "명)이며, 이 시는 총인구 순위로는 " + popRank + "위입니다. " +
+    "등록외국인 수가 총인구 규모만으로 정해지지 않고, 산업단지나 일자리 같은 다른 요인의 영향을 받을 수 있습니다. " +
+    "다만 이 자료에는 국적이나 체류 목적이 없어, 외국인이 많이 사는 원인은 이 자료만으로 알 수 없습니다.";
 }

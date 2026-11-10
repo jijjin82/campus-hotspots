@@ -92,7 +92,10 @@ function updateStatus() {
 function finishGame(success) {
   gameRunning = false;
   cancelAnimationFrame(animationId);
-  messageElement.textContent = success ? "성공! 코인 15개를 모았습니다." : "실패! 기회를 모두 잃었습니다.";
+  const failMessage = lives <= 0
+    ? "실패! 기회를 모두 잃었습니다."
+    : "시간 종료! 코인 " + score + "개를 모았습니다. 목표는 " + TARGET_SCORE + "개.";
+  messageElement.textContent = success ? "성공! 코인 15개를 모았습니다." : failMessage;
   startButton.textContent = "재시작";
 }
 
