@@ -164,6 +164,13 @@ python -m flask --app app run --debug --port 5000
 - 환경 변수: SECRET_KEY, WEEK7_ADMIN_USERNAME, WEEK7_ADMIN_PASSWORD, APP_HTTPS, PYTHON_VERSION (값은 저장소에 적지 않음)
 - 무료 서비스는 재시작·재배포 때 DB가 초기화될 수 있지만, 시작할 때마다 `ensure-admin`이 관리자 계정을 다시 만들기 때문에 관리자 로그인은 유지됨
 
+### 두 계정의 확인 결과 (Render)
+- Edge 일반 창에서 A 계정, InPrivate 창에서 B 계정으로 각각 로그인함
+- B 화면에서도 A가 쓴 글이 보였지만, A 글에는 "내 글 삭제" 버튼이 없고 신고 칸만 있었다
+- B가 글을 쓴 뒤 A 창을 새로고침하자 B의 글이 보였다. 두 브라우저가 같은 서버의 같은 SQLite DB를 읽기 때문이다
+- 5주차 localStorage는 기기마다 따로 저장되어 친구 기록이 보이지 않았지만, 7주차는 서버 DB에 저장해서 서로의 글을 볼 수 있다는 차이를 확인함
+  ![두 계정](week7/screenshots/two-accounts.png)
+  
 ### 관리 기능 시험 결과 (Render)
 1. admin7로 로그인 → 관리 화면에서 연습 계정 2개·글 4개 생성
    ![관리 화면](week7/screenshots/admin-render.png)
